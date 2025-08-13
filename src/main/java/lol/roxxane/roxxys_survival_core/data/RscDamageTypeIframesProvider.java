@@ -1,12 +1,15 @@
 package lol.roxxane.roxxys_survival_core.data;
 
 import com.google.gson.JsonObject;
+import lol.roxxane.roxxys_survival_core.utils.DamageTypeUtil;
 import lol.roxxane.roxxys_survival_core.utils.Id;
 import lol.roxxane.roxxys_survival_core.utils.Pair;
+import net.minecraft.client.Minecraft;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -16,9 +19,17 @@ import java.util.concurrent.CompletableFuture;
 
 public class RscDamageTypeIframesProvider implements DataProvider {
 	private final PackOutput.PathProvider path_provider;
-	public static final Map<ResourceLocation, Pair<ResourceLocation, Integer>> ID_FRAME_MAP = new HashMap<>();
+	private static final Map<ResourceLocation, Pair<ResourceLocation, Integer>> ID_FRAME_MAP = new HashMap<>();
+	private static final Map<DamageType, Integer> DAMAGE_TYPE_IFRAMES_MAP = new HashMap<>();
 	public RscDamageTypeIframesProvider(PackOutput output) {
 		path_provider = output.createPathProvider(PackOutput.Target.DATA_PACK, getName());
+	}
+	public static Map<DamageType, Integer> damage_type_iframes_map() {
+		if (DAMAGE_TYPE_IFRAMES_MAP.isEmpty())
+			for (var entry : ID_FRAME_MAP.entrySet())
+				DAMAGE_TYPE_IFRAMES_MAP.put(
+					DamageTypeUtil.get(Minecraft.getInstance().level, entry.getValue().a), entry.getValue().b);
+		return DAMAGE_TYPE_IFRAMES_MAP;
 	}
 	@Override
 	public @NotNull CompletableFuture<?> run(@NotNull CachedOutput output) {

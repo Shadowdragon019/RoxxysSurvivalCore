@@ -1,6 +1,6 @@
 package lol.roxxane.roxxys_survival_core.mixins.mining_cooldown;
 
-import lol.roxxane.roxxys_survival_core.RscServerConfig;
+import lol.roxxane.roxxys_survival_core.configs.RscServerConfig;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
 import net.minecraft.world.level.GameType;
 import org.spongepowered.asm.mixin.Mixin;

@@ -1,4 +1,4 @@
-package lol.roxxane.roxxys_survival_core;
+package lol.roxxane.roxxys_survival_core.configs;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
@@ -14,7 +14,9 @@ public class RscServerConfig {
 	public static final IntValue CREATIVE_MINING_COOLDOWN =
 		BUILDER.comment("Vanilla value is 5")
 			.defineInRange("creative_mining_cooldown", 5, 0, Integer.MAX_VALUE);
-	public static final IntValue DEFAULT_IFRAME_COUNT =
-		BUILDER.defineInRange("default_iframe_count", 10, 0, Integer.MAX_VALUE);
+	public static final IntValue DEFAULT_IFRAMES =
+		BUILDER.defineInRange("default_iframes", 5, 0, Integer.MAX_VALUE);
+	public static final BooleanValue OVERRIDE_IFRAME_FUNCTIONALITY =
+		BUILDER.define("override_iframe_functionality", false);
 	public static final ForgeConfigSpec SPEC = BUILDER.build();
 }

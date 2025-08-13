@@ -1,7 +1,6 @@
 package lol.roxxane.roxxys_survival_core.data;
 
 import lol.roxxane.roxxys_survival_core.Rsc;
-import lol.roxxane.roxxys_survival_core.RscItemTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
@@ -28,10 +27,6 @@ public class RscDataGen {
 		output = generator.getPackOutput();
 		existing_file_helper = event.getExistingFileHelper();
 		provider = event.getLookupProvider();
-		server_provider(new RscRecipeProvider(output));
-		server_provider(new RscItemTagProvider(output, provider,
-			server_provider(new RscBlockTagProvider(output, provider, existing_file_helper)).contentsGetter(),
-			existing_file_helper));
 		server_provider(new RscDamageTypeIframesProvider(output));
 	}
 	private static <T extends DataProvider> T server_provider(T provider) {

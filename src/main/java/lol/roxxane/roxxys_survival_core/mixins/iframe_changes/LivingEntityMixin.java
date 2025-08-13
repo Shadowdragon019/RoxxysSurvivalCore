@@ -1,5 +1,6 @@
 package lol.roxxane.roxxys_survival_core.mixins.iframe_changes;
 
+import lol.roxxane.roxxys_survival_core.configs.RscServerConfig;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -20,8 +21,10 @@ abstract class LivingEntityMixin extends Entity {
 	}
 	@ModifyConstant(method = "hurt",
 		constant = @Constant(floatValue = 10))
-	private float nothing_bypasses_iframes(float constant) {
-		return Float.MAX_VALUE;
+	private float nothing_bypasses_iframes(float original) {
+		if (RscServerConfig.OVERRIDE_IFRAME_FUNCTIONALITY.get())
+			return original;
+		else return Float.MAX_VALUE;
 	}
 	@Inject(method = "hurt",
 		cancellable = true,
@@ -29,7 +32,7 @@ abstract class LivingEntityMixin extends Entity {
 			opcode = Opcodes.PUTFIELD,
 			target = "Lnet/minecraft/world/entity/LivingEntity;lastHurt:F"))
 	private void block_damage_with_iframes(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
-		if (invulnerableTime > 0)
+		if (invulnerableTime > 0 && RscServerConfig.OVERRIDE_IFRAME_FUNCTIONALITY.get())
 			cir.setReturnValue(false);
 	}
 }
