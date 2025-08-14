@@ -20,13 +20,3 @@ public class Rsc {
 		context.registerConfig(ModConfig.Type.SERVER, RscServerConfig.SPEC);
 	}
 }
-/*
-Make sure tiers take time to get. Going from stone -> iron felt pretty good in the test
-Food heals/gives effects
-Remove/reduce mob i-frames so you can hit them more
-Zombie hp - 40
-Spider hp - 30
-Remove shields
-Merge the wood/stone tool tiers
-Want: Some mod to show how much hearts something heals
-*/
