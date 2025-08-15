@@ -8,7 +8,7 @@
 	"refmap": "mixins.roxxys_survival_core.refmap.json",
 	"mixins": [
 		"iframe_changes.LivingEntityMixin",
-		"indestructible_items.ItemStackMixin"
+		"stop_automate_block_famlies.BlockFamilyInferrerMixin"
 	],
 	"client": [
 		"mining_cooldown.MultiPlayerGameModeMixin"
