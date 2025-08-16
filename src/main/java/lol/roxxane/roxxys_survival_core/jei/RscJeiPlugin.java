@@ -4,15 +4,19 @@ import lol.roxxane.roxxys_survival_core.Rsc;
 import lol.roxxane.roxxys_survival_core.recipes.JeiOutputOverride;
 import lol.roxxane.roxxys_survival_core.recipes.SimpleJeiRecipe;
 import lol.roxxane.roxxys_survival_core.utils.Id;
+import lol.roxxane.roxxys_survival_core.utils.Merge;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
+import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CustomRecipe;
-import net.minecraft.world.item.crafting.Ingredient;
 import org.jetbrains.annotations.NotNull;
+import snownee.kiwi.customization.block.family.BlockFamilies;
+import snownee.kiwi.util.KHolder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,13 +25,22 @@ import static net.minecraft.tags.ItemTags.*;
 import static net.minecraft.tags.ItemTags.TERRACOTTA;
 import static net.minecraft.world.item.ItemStack.EMPTY;
 import static net.minecraft.world.item.Items.*;
+import static net.minecraftforge.common.Tags.Items.*;
 
 @JeiPlugin
 public class RscJeiPlugin implements IModPlugin {
 	public static final ResourceLocation ID = Id.rsc(Rsc.ID);
+	public static final ResourceLocation SWITCHING_TEXTURE_ID = Id.rsc("textures/jei/category/switching.png");
 	@Override
 	public @NotNull ResourceLocation getPluginUid() {
 		return ID;
+	}
+	@Override
+	public void registerCategories(@NotNull IRecipeCategoryRegistration registration) {
+		var jei_helpers = registration.getJeiHelpers();
+		var gui_helper = jei_helpers.getGuiHelper();
+
+		registration.addRecipeCategories(new SwitchingCategory(gui_helper));
 	}
 	@Override
 	public void registerVanillaCategoryExtensions(@NotNull IVanillaCategoryExtensionRegistration registration) {
@@ -45,36 +58,80 @@ public class RscJeiPlugin implements IModPlugin {
 	}
 	@Override
 	public void registerRecipes(@NotNull IRecipeRegistration registration) {
+		var glazed_terracottas = List.of(BROWN_GLAZED_TERRACOTTA, WHITE_GLAZED_TERRACOTTA,
+			ORANGE_GLAZED_TERRACOTTA, MAGENTA_GLAZED_TERRACOTTA, LIGHT_BLUE_GLAZED_TERRACOTTA,
+			YELLOW_GLAZED_TERRACOTTA, LIME_GLAZED_TERRACOTTA, PINK_GLAZED_TERRACOTTA, GRAY_GLAZED_TERRACOTTA,
+			LIGHT_GRAY_GLAZED_TERRACOTTA, CYAN_GLAZED_TERRACOTTA, PURPLE_GLAZED_TERRACOTTA, BLUE_GLAZED_TERRACOTTA,
+			GREEN_GLAZED_TERRACOTTA, RED_GLAZED_TERRACOTTA, BLACK_GLAZED_TERRACOTTA);
+		var boat_planks = Merge.minus_stacks(PLANKS,
+			List.of(WARPED_PLANKS, CRIMSON_PLANKS));
+		var stained_glass_pane_glass = List.of(Items.GLASS, STAINED_GLASS);
 		registration.addRecipes(RecipeTypes.CRAFTING, List.of(
 			new SimpleJeiRecipe(Id.rsc("carpets"), false)
 				.ingredients(WOOL, WOOL)
-				.output(3, WOOL_CARPETS),
+				.output_count(3, WOOL_CARPETS),
 			new SimpleJeiRecipe(Id.rsc("beds"), false)
-				.ingredients(EMPTY, EMPTY, EMPTY)
-				.ingredients(WOOL, WOOL, WOOL)
-				.ingredients(PLANKS, PLANKS, PLANKS)
-				.output(1, BEDS),
+				.ingredients(EMPTY, EMPTY, EMPTY, WOOL, WOOL, WOOL, PLANKS, PLANKS, PLANKS)
+				.output(BEDS),
 			new SimpleJeiRecipe(Id.rsc("banners"), false)
-				.ingredients(WOOL, WOOL, WOOL, WOOL, WOOL, WOOL)
-				.ingredients(EMPTY)
-				.ingredients(STICK)
-				.output(1, BANNERS),
+				.ingredients(WOOL, WOOL, WOOL, WOOL, WOOL, WOOL, EMPTY, PLANKS)
+				.output(BANNERS),
 			new SimpleJeiRecipe(Id.rsc("glazed_terracotta"), false)
-				.ingredients(EMPTY, EMPTY, EMPTY, EMPTY)
-				.ingredients(TERRACOTTA)
-				.output(1, BROWN_GLAZED_TERRACOTTA, WHITE_GLAZED_TERRACOTTA, ORANGE_GLAZED_TERRACOTTA,
-					MAGENTA_GLAZED_TERRACOTTA, LIGHT_BLUE_GLAZED_TERRACOTTA, YELLOW_GLAZED_TERRACOTTA,
-					LIME_GLAZED_TERRACOTTA, PINK_GLAZED_TERRACOTTA, GRAY_GLAZED_TERRACOTTA,
-					LIGHT_GRAY_GLAZED_TERRACOTTA, CYAN_GLAZED_TERRACOTTA, PURPLE_GLAZED_TERRACOTTA,
-					BLUE_GLAZED_TERRACOTTA, GREEN_GLAZED_TERRACOTTA, RED_GLAZED_TERRACOTTA, BLACK_GLAZED_TERRACOTTA),
+				.ingredients(EMPTY, EMPTY, EMPTY, EMPTY, TERRACOTTA)
+				.output(glazed_terracottas),
 			new SimpleJeiRecipe(Id.rsc("terracotta"), false)
-				.ingredients(EMPTY, EMPTY, EMPTY, EMPTY)
-				.ingredients(Ingredient.of(BROWN_GLAZED_TERRACOTTA, WHITE_GLAZED_TERRACOTTA,
-					ORANGE_GLAZED_TERRACOTTA, MAGENTA_GLAZED_TERRACOTTA, LIGHT_BLUE_GLAZED_TERRACOTTA,
-					YELLOW_GLAZED_TERRACOTTA, LIME_GLAZED_TERRACOTTA, PINK_GLAZED_TERRACOTTA, GRAY_GLAZED_TERRACOTTA,
-					LIGHT_GRAY_GLAZED_TERRACOTTA, CYAN_GLAZED_TERRACOTTA, PURPLE_GLAZED_TERRACOTTA,
-					BLUE_GLAZED_TERRACOTTA, GREEN_GLAZED_TERRACOTTA, RED_GLAZED_TERRACOTTA, BLACK_GLAZED_TERRACOTTA))
-				.output(1, TERRACOTTA)
+				.ingredients(EMPTY, EMPTY, EMPTY, EMPTY, glazed_terracottas)
+				.output(TERRACOTTA),
+			new SimpleJeiRecipe(Id.rsc("stained_glass"), false)
+				.ingredients(EMPTY, EMPTY, EMPTY,
+					stained_glass_pane_glass, stained_glass_pane_glass, stained_glass_pane_glass,
+					stained_glass_pane_glass, stained_glass_pane_glass, stained_glass_pane_glass)
+				.output_count(16, Items.GLASS_PANE, STAINED_GLASS_PANES),
+			new SimpleJeiRecipe(Id.rsc("boats"), false)
+				.ingredients(EMPTY, EMPTY, EMPTY,
+					boat_planks, EMPTY, boat_planks,
+					boat_planks, boat_planks, boat_planks)
+				.output(Merge.minus_stacks(BOATS, CHEST_BOATS)),
+			new SimpleJeiRecipe(Id.rsc("chest_boats"), false)
+				.ingredients(EMPTY, EMPTY, EMPTY,
+					boat_planks, CHESTS_WOODEN, boat_planks,
+					boat_planks, boat_planks, boat_planks)
+				.output(CHEST_BOATS),
+			new SimpleJeiRecipe(Id.rsc("planks"), false)
+				.ingredients(EMPTY, EMPTY, EMPTY, EMPTY, LOGS)
+				.output(PLANKS),
+			new SimpleJeiRecipe(Id.rsc("mossy_stone"), true)
+				.ingredients(List.of(Items.COBBLESTONE, COBBLESTONE_STAIRS, COBBLESTONE_SLAB, COBBLESTONE_WALL,
+						Items.STONE_BRICKS, STONE_BRICK_STAIRS, STONE_BRICK_SLAB, STONE_BRICK_WALL),
+					List.of(VINE, MOSS_BLOCK))
+				.output(MOSSY_COBBLESTONE, MOSSY_COBBLESTONE_STAIRS, MOSSY_COBBLESTONE_SLAB,
+					MOSSY_COBBLESTONE_WALL, MOSSY_STONE_BRICKS, MOSSY_STONE_BRICK_STAIRS, MOSSY_STONE_BRICK_SLAB,
+					MOSSY_STONE_BRICK_WALL),
+			new SimpleJeiRecipe(Id.rsc("minecarts"), false)
+				.ingredients(List.of(FURNACE, CHESTS_WOODEN, HOPPER, TNT), MINECART)
+				.output(FURNACE_MINECART, CHEST_MINECART, HOPPER_MINECART, TNT_MINECART)
 		));
+		var all_switch_families = BlockFamilies.all().stream()
+			.filter(holder ->
+				holder.value().switchAttrs().enabled() &&
+					holder.value().switchAttrs().cascading())
+			.toList();
+		if (all_switch_families.isEmpty())
+			Rsc.log("Found 0 KSwitch block families");
+		else {
+			Rsc.log("Found " + all_switch_families.size() + " KSwitch block families:");
+			for (var holder : BlockFamilies.all()) {
+				var id = Id.stringify(holder.key());
+				var family = holder.value();
+				var items = new StringBuilder();
+				for (var item : family.itemHolders())
+					items.append(Id.stringify(item.key().location())).append(", ");
+				if (!items.isEmpty())
+					items.delete(items.length() - 2, items.length() - 1);
+				Rsc.log(id + " with " + family.itemHolders().size() + " items " + items);
+			}
+		}
+		registration.addRecipes(RscJeiRecipeTypes.SWITCHING,
+			all_switch_families.stream().map(KHolder::value).toList());
 	}
 }

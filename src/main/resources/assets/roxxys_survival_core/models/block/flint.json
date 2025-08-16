@@ -1,18 +1,21 @@
 {
 	"credit": "Made with Blockbench",
+	"textures": {
+		"particle": "roxxys_survival_core:block/flint",
+		"flint": "roxxys_survival_core:block/flint"
+	},
 	"elements": [
 		{
 			"from": [4, 0, 2],
 			"to": [12, 2, 14],
 			"rotation": {"angle": 0, "axis": "y", "origin": [8, 1, 8]},
-			"color": 1,
 			"faces": {
-				"north": {"uv": [0, 0, 8, 2], "texture": "#missing"},
-				"east": {"uv": [0, 0, 12, 2], "texture": "#missing"},
-				"south": {"uv": [0, 0, 8, 2], "texture": "#missing"},
-				"west": {"uv": [0, 0, 12, 2], "texture": "#missing"},
-				"up": {"uv": [0, 0, 8, 12], "texture": "#missing"},
-				"down": {"uv": [0, 0, 8, 12], "texture": "#missing"}
+				"north": {"uv": [4, 0, 12, 2], "texture": "#flint"},
+				"east": {"uv": [2, 0, 14, 2], "texture": "#flint"},
+				"south": {"uv": [4, 0, 12, 2], "texture": "#flint"},
+				"west": {"uv": [2, 0, 14, 2], "texture": "#flint"},
+				"up": {"uv": [4, 2, 12, 14], "texture": "#flint"},
+				"down": {"uv": [4, 2, 12, 14], "texture": "#flint"}
 			}
 		}
 	],

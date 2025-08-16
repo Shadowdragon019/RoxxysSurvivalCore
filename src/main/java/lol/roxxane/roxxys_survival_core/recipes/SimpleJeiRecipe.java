@@ -1,24 +1,20 @@
 package lol.roxxane.roxxys_survival_core.recipes;
 
+import lol.roxxane.roxxys_survival_core.utils.Merge;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.inventory.CraftingContainer;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.NotImplementedException;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SimpleJeiRecipe extends CustomRecipe implements JeiOutputOverride {
@@ -29,41 +25,20 @@ public class SimpleJeiRecipe extends CustomRecipe implements JeiOutputOverride {
 		super(id, CraftingBookCategory.MISC);
 		this.shapeless = shapeless;
 	}
-	public SimpleJeiRecipe ingredients(Ingredient... ingredients) {
-		this.ingredients.addAll(Arrays.stream(ingredients).toList());
+	public SimpleJeiRecipe ingredients_count(int count, Object... objects) {
+		ingredients.addAll(Merge.ingredients_count(count, objects));
 		return this;
 	}
-	public SimpleJeiRecipe ingredients(ItemStack... stacks) {
-		ingredients.addAll(Arrays.stream(stacks).map(Ingredient::of).toList());
+	public SimpleJeiRecipe ingredients(Object... objects) {
+		ingredients.addAll(Merge.ingredients(objects));
 		return this;
 	}
-	public SimpleJeiRecipe ingredients(ItemLike... items) {
-		ingredients.addAll(Arrays.stream(items).map(Ingredient::of).toList());
+	public SimpleJeiRecipe output_count(int count, Object... objects) {
+		output.addAll(Merge.stacks_count(count, objects));
 		return this;
 	}
-	@SafeVarargs
-	public final SimpleJeiRecipe ingredients(TagKey<Item>... tags) {
-		ingredients.addAll(Arrays.stream(tags).map(Ingredient::of).toList());
-		return this;
-	}
-	public SimpleJeiRecipe output(ItemStack... stacks) {
-		output.addAll(Arrays.stream(stacks).toList());
-		return this;
-	}
-	public SimpleJeiRecipe output(int count, ItemLike... items) {
-		output.addAll(Arrays.stream(items)
-			.map(item -> new ItemStack(item, count)).toList());
-		return this;
-	}
-	@SuppressWarnings("DataFlowIssue")
-	@SafeVarargs
-	public final SimpleJeiRecipe output(int count, TagKey<Item>... tags) {
-		// This could be made so more readable but I like it hehehe
-		output.addAll(Arrays.stream(tags)
-			.map(tag -> ForgeRegistries.ITEMS.tags().getTag(tag).stream().toList())
-			.collect(ArrayList::new, (result_items, tag_items) ->
-				result_items.addAll(tag_items.stream().map(item -> new ItemStack(item, count)).toList()),
-				ArrayList::addAll));
+	public SimpleJeiRecipe output(Object... objects) {
+		output.addAll(Merge.stacks(objects));
 		return this;
 	}
 	@Override

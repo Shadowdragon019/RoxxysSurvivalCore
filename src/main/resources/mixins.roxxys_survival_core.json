@@ -7,6 +7,7 @@
 	},
 	"refmap": "mixins.roxxys_survival_core.refmap.json",
 	"mixins": [
+		"block_family_ratio_override.BlockFamiliesMixin",
 		"iframe_changes.LivingEntityMixin",
 		"stop_automate_block_famlies.BlockFamilyInferrerMixin"
 	],

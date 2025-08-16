@@ -1,13 +1,18 @@
 package lol.roxxane.roxxys_survival_core.blocks;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SimpleWaterloggedBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -16,6 +21,8 @@ import static net.minecraft.world.level.block.state.properties.BlockStatePropert
 
 @SuppressWarnings("deprecation")
 public class FlintBlock extends Block implements SimpleWaterloggedBlock {
+	public static final VoxelShape EAST_WEST = Block.box(2, 0, 4, 14, 2, 12);
+	public static final VoxelShape NORTH_SOUTH = Block.box(4, 0, 2, 12, 2, 14);
 	public FlintBlock(Properties properties) {
 		super(properties);
 		registerDefaultState(getStateDefinition().any()
@@ -51,7 +58,12 @@ public class FlintBlock extends Block implements SimpleWaterloggedBlock {
 			HORIZONTAL_FACING
 		);
 	}
-	/*@Override
+	@Override
+	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+		return level.getBlockState(pos.offset(0, -1, 0))
+			.isFaceSturdy(level, pos, Direction.UP);
+	}
+	@Override
 	public @NotNull VoxelShape getShape(
 		BlockState state,
 		@NotNull BlockGetter level,
@@ -59,11 +71,9 @@ public class FlintBlock extends Block implements SimpleWaterloggedBlock {
 		@NotNull CollisionContext ctx
 	) {
 		return switch (state.getValue(HORIZONTAL_FACING)) {
-			case EAST -> east;
-			case WEST -> west;
-			case SOUTH -> south;
-			case NORTH -> north;
+			case EAST, WEST -> EAST_WEST;
+			case SOUTH, NORTH -> NORTH_SOUTH;
 			default -> throw new IllegalStateException("Not a possible direction!");
 		};
-	}*/
+	}
 }

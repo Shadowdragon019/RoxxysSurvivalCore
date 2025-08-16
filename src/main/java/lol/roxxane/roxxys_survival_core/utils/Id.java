@@ -16,4 +16,9 @@ public class Id {
 	public static ResourceLocation parse(String id) {
 		return ResourceLocation.parse(id);
 	}
+	public static String stringify(ResourceLocation id) {
+		if (id.getNamespace().equals("minecraft")) {
+			return id.getPath();
+		} else return id.toString();
+	}
 }

@@ -3,13 +3,15 @@ package lol.roxxane.roxxys_survival_core.blocks;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 
 import static lol.roxxane.roxxys_survival_core.Rsc.REGISTRATE;
 
 public class RscBlocks {
 	public static final RegistryEntry<FlintBlock> FLINT =
-		REGISTRATE.block("flint", p -> new FlintBlock(p))
+		REGISTRATE.block("flint", p ->
+				new FlintBlock(p.instabreak().mapColor(MapColor.STONE)))
 			.blockstate((ctx, provider) ->
 				provider.getVariantBuilder(ctx.getEntry()).forAllStatesExcept(
 					state -> ConfiguredModel.builder()

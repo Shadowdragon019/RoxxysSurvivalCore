@@ -20,6 +20,7 @@ public class Rsc {
 	}
 	public Rsc(FMLJavaModLoadingContext context) {
 		//var mod_bus = context.getModEventBus();
+		REGISTRATE.addRawLang("jei.category.roxxys_survival_core.switching", "Switching");
 		context.registerConfig(ModConfig.Type.SERVER, RscServerConfig.SPEC);
 		RscBlocks.register();
 	}
