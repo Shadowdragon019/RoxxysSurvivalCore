@@ -1,6 +1,11 @@
 {
   "block.roxxys_survival_core.flint": "Flint",
+  "item.roxxys_survival_core.axe_base": "Axe Base",
+  "item.roxxys_survival_core.hoe_base": "Hoe Base",
   "item.roxxys_survival_core.iron_plate": "Iron Plate",
+  "item.roxxys_survival_core.pickaxe_base": "Pickaxe Base",
+  "item.roxxys_survival_core.shovel_base": "Shovel Base",
+  "item.roxxys_survival_core.sword_base": "Sword Base",
   "jei.recipe.roxxys_survival_core.dyes": "Dyes: 1-8",
   "jei.recipe.roxxys_survival_core.firework_stars": "Firework Stars: 1-8",
   "jei.recipe.roxxys_survival_core.gunpowder": "Gunpowder: 1-3",

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "roxxys_survival_core:item/shovel_base"
+  }
+}
