@@ -6,6 +6,7 @@ import lol.roxxane.roxxys_survival_core.blocks.RscBlocks;
 import lol.roxxane.roxxys_survival_core.configs.RscClientConfig;
 import lol.roxxane.roxxys_survival_core.configs.RscCommonConfig;
 import lol.roxxane.roxxys_survival_core.configs.RscServerConfig;
+import lol.roxxane.roxxys_survival_core.items.RscItems;
 import lol.roxxane.roxxys_survival_core.recipes.FireworkStarRecipeCustomization;
 import net.minecraft.world.item.FireworkRocketItem;
 import net.minecraft.world.item.Items;
@@ -33,6 +34,7 @@ public class Rsc {
 		context.registerConfig(ModConfig.Type.COMMON, RscCommonConfig.SPEC);
 		context.registerConfig(ModConfig.Type.CLIENT, RscClientConfig.SPEC);
 		RscBlocks.register();
+		RscItems.register();
 	    FireworkStarRecipeCustomization.remove_item(Items.FIRE_CHARGE);
 		FireworkStarRecipeCustomization.remove_item(Items.GOLD_NUGGET);
 		FireworkStarRecipeCustomization.remove_item(Items.SKELETON_SKULL);

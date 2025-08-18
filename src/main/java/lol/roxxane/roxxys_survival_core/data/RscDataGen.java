@@ -28,6 +28,9 @@ public class RscDataGen {
 		existing_file_helper = event.getExistingFileHelper();
 		provider = event.getLookupProvider();
 		server_provider(new RscDamageTypeIframesProvider(output));
+		server_provider(new RscItemTagProvider(output, provider,
+			server_provider(new RscBlockTagProvider(output, provider, existing_file_helper)).contentsGetter(),
+			existing_file_helper));
 	}
 	private static <T extends DataProvider> T server_provider(T provider) {
 		generator.addProvider(event.includeServer(), provider);
