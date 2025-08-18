@@ -11,6 +11,7 @@ public class RscItems {
 		REGISTRATE.item("iron_plate", Item::new)
 			.tab(CreativeModeTabs.INGREDIENTS)
 			.defaultModel()
+			.defaultLang()
 			.register();
 	public static void register(){}
 }
