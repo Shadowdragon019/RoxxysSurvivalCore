@@ -1,12 +1,12 @@
-// 1.20.1	2025-08-18T18:26:37.784871154	Registrate Provider for roxxys_survival_core [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-08-18T18:36:35.144424814	Registrate Provider for roxxys_survival_core [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 cae6f485a17bde74d91e6c91ce4960e77ab1e3db assets/roxxys_survival_core/blockstates/flint.json
 00d4931288595f0d609661083966e8646d88f659 assets/roxxys_survival_core/lang/en_ud.json
 9ca557842690eba64abc87f0795cc732d3d58108 assets/roxxys_survival_core/lang/en_us.json
-94e77687565cfe72faa2204a6cba884958c5afa7 assets/roxxys_survival_core/models/item/axe_base.json
+df082e4da8c1b5add9a1daf7bbe06b141f174407 assets/roxxys_survival_core/models/item/axe_base.json
 22cbe25e6c560f3524ecc3a2c714c38b3cf4b408 assets/roxxys_survival_core/models/item/flint.json
-4bb8536753098880773b4680b6fd4ec3a3f2e562 assets/roxxys_survival_core/models/item/hoe_base.json
+a1695cecf667a0bb8d2bb31f50333b148b0463af assets/roxxys_survival_core/models/item/hoe_base.json
 fb986e2049aed476873e8b29acc5b9a9cc962962 assets/roxxys_survival_core/models/item/iron_plate.json
-f239efc621cc4f4a381e8817b3e0231f745b2725 assets/roxxys_survival_core/models/item/pickaxe_base.json
-dac067ccd95eef6d10ca27cb9ac261d0a64a5243 assets/roxxys_survival_core/models/item/shovel_base.json
-1f00b64d402d85316259bad25f26d52568f3f86c assets/roxxys_survival_core/models/item/sword_base.json
+16d82fcb91ab5d317dbdfeede3cee8a1ccfc2098 assets/roxxys_survival_core/models/item/pickaxe_base.json
+443634613640c306b226b93e6cbbfa35739deaee assets/roxxys_survival_core/models/item/shovel_base.json
+75d3d5e48603e27bd1473bc9c2076a368e1fee4e assets/roxxys_survival_core/models/item/sword_base.json
 d9c3b327e64fd256fde6d5b1926d5e80d227b55b data/roxxys_survival_core/loot_tables/blocks/flint.json

@@ -16,15 +16,25 @@ public class RscItems {
 	public static final RegistryEntry<Item> IRON_PLATE = item("iron_plate",
 		builder -> builder.tab(CreativeModeTabs.INGREDIENTS));
 	public static final RegistryEntry<Item> SHOVEL_BASE = item("shovel_base",
-		builder -> builder.tab(CreativeModeTabs.INGREDIENTS));
+		builder -> builder
+			.model((ctx, prov) -> prov.handheld(ctx::get))
+			.tab(CreativeModeTabs.INGREDIENTS));
 	public static final RegistryEntry<Item> PICKAXE_BASE = item("pickaxe_base",
-		builder -> builder.tab(CreativeModeTabs.INGREDIENTS));
+		builder -> builder
+			.model((ctx, prov) -> prov.handheld(ctx::get))
+			.tab(CreativeModeTabs.INGREDIENTS));
 	public static final RegistryEntry<Item> AXE_BASE = item("axe_base",
-		builder -> builder.tab(CreativeModeTabs.INGREDIENTS));
+		builder -> builder
+			.model((ctx, prov) -> prov.handheld(ctx::get))
+			.tab(CreativeModeTabs.INGREDIENTS));
 	public static final RegistryEntry<Item> HOE_BASE = item("hoe_base",
-		builder -> builder.tab(CreativeModeTabs.INGREDIENTS));
+		builder -> builder
+			.model((ctx, prov) -> prov.handheld(ctx::get))
+			.tab(CreativeModeTabs.INGREDIENTS));
 	public static final RegistryEntry<Item> SWORD_BASE = item("sword_base",
-		builder -> builder.tab(CreativeModeTabs.INGREDIENTS));
+		builder -> builder
+			.model((ctx, prov) -> prov.handheld(ctx::get))
+			.tab(CreativeModeTabs.INGREDIENTS));
 	private static <I extends Item> RegistryEntry<I> item(String path,
 		Function<Properties, I> function, Consumer<ItemBuilder<I, Registrate>> consumer
 	) {
