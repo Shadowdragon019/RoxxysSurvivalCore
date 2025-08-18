@@ -12,9 +12,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class Merge {
+public class ItemManipulation {
 	@SuppressWarnings({"unchecked", "DataFlowIssue"})
 	public static ArrayList<ItemStack> stacks_count(int count, Object... objects) {
 		var stacks = new ArrayList<ItemStack>();
@@ -54,6 +55,23 @@ public class Merge {
 			else Rsc.log("Could not merge " + object.getClass() + " into stacks!");
 		return stacks;
 	}
+	@SuppressWarnings({"DataFlowIssue", "unchecked"})
+	public static ArrayList<Item> items(Object... objects) {
+		var items = new ArrayList<Item>();
+		for (var object : objects)
+			if (object instanceof ItemStack stack) items.add(stack.getItem());
+			else if (object instanceof Ingredient ingredient)
+				items.addAll(Arrays.stream(ingredient.getItems()).map(ItemStack::getItem).toList());
+			else if (object instanceof ItemLike item_like)
+				items.add(item_like.asItem());
+			else if (object instanceof TagKey<?> tag)
+				items.addAll((ForgeRegistries.ITEMS.tags().getTag((TagKey<Item>) tag)).stream()
+					.collect(ArrayList::new, ArrayList::add, ArrayList::addAll));
+			else if (object instanceof List<?> list)
+				items.addAll(items(list.toArray()));
+			else Rsc.log("Could not merge " + object.getClass() + " into items!");
+		return items;
+	}
 	public static NonNullList<Ingredient> ingredients_count(int count, Object... objects) {
 		var ingredients = NonNullList.<Ingredient>create();
 		for (var object : objects)
@@ -75,5 +93,23 @@ public class Merge {
 					return false;
 			return true;
 		}).collect(Collectors.toCollection(ArrayList::new));
+	}
+	public static ArrayList<Item> minus_items(Object original, Object remove) {
+		var original_items = items(original);
+		var remove_items = items(remove);
+		return original_items.stream().filter(original_item -> {
+			for (var remove_item : remove_items)
+				if (original_item == remove_item)
+					return false;
+			return true;
+		}).collect(Collectors.toCollection(ArrayList::new));
+	}
+	public static ArrayList<ItemStack> copy_stacks(Function<ItemStack, ItemStack> function, Object... objects) {
+		var stacks = stacks(objects);
+		return stacks.stream().map(stack -> function.apply(stack.copy()))
+			.collect(Collectors.toCollection(ArrayList::new));
+	}
+	public static Ingredient ingredient(Object... objects) {
+		return Ingredient.of(items(objects).toArray(Item[]::new));
 	}
 }

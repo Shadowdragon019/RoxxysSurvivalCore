@@ -1,17 +1,20 @@
 package lol.roxxane.roxxys_survival_core.jei;
 
 import lol.roxxane.roxxys_survival_core.Rsc;
+import lol.roxxane.roxxys_survival_core.configs.RscClientConfig;
 import lol.roxxane.roxxys_survival_core.recipes.JeiOutputOverride;
 import lol.roxxane.roxxys_survival_core.recipes.SimpleJeiRecipe;
 import lol.roxxane.roxxys_survival_core.utils.Id;
-import lol.roxxane.roxxys_survival_core.utils.Merge;
+import lol.roxxane.roxxys_survival_core.utils.ItemManipulation;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +23,11 @@ import snownee.kiwi.util.KHolder;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
+import static lol.roxxane.roxxys_survival_core.recipes.FireworkStarRecipeCustomization.get_shape_ingredient;
+import static lol.roxxane.roxxys_survival_core.utils.ItemManipulation.copy_stacks;
+import static net.minecraft.network.chat.Component.translatable;
 import static net.minecraft.tags.ItemTags.*;
 import static net.minecraft.tags.ItemTags.TERRACOTTA;
 import static net.minecraft.world.item.ItemStack.EMPTY;
@@ -29,6 +36,9 @@ import static net.minecraftforge.common.Tags.Items.*;
 
 @JeiPlugin
 public class RscJeiPlugin implements IModPlugin {
+	public static final Function<ItemStack, ItemStack> optional = stack ->
+		stack.setHoverName(Component.translatable("jei.recipe.roxxys_survival_core.optional",
+			stack.getHoverName()));
 	public static final ResourceLocation ID = Id.rsc(Rsc.ID);
 	public static final ResourceLocation SWITCHING_TEXTURE_ID = Id.rsc("textures/jei/category/switching.png");
 	@Override
@@ -63,7 +73,7 @@ public class RscJeiPlugin implements IModPlugin {
 			YELLOW_GLAZED_TERRACOTTA, LIME_GLAZED_TERRACOTTA, PINK_GLAZED_TERRACOTTA, GRAY_GLAZED_TERRACOTTA,
 			LIGHT_GRAY_GLAZED_TERRACOTTA, CYAN_GLAZED_TERRACOTTA, PURPLE_GLAZED_TERRACOTTA, BLUE_GLAZED_TERRACOTTA,
 			GREEN_GLAZED_TERRACOTTA, RED_GLAZED_TERRACOTTA, BLACK_GLAZED_TERRACOTTA);
-		var boat_planks = Merge.minus_stacks(PLANKS,
+		var boat_planks = ItemManipulation.minus_stacks(PLANKS,
 			List.of(WARPED_PLANKS, CRIMSON_PLANKS));
 		var stained_glass_pane_glass = List.of(Items.GLASS, STAINED_GLASS);
 		registration.addRecipes(RecipeTypes.CRAFTING, List.of(
@@ -91,7 +101,7 @@ public class RscJeiPlugin implements IModPlugin {
 				.ingredients(EMPTY, EMPTY, EMPTY,
 					boat_planks, EMPTY, boat_planks,
 					boat_planks, boat_planks, boat_planks)
-				.output(Merge.minus_stacks(BOATS, CHEST_BOATS)),
+				.output(ItemManipulation.minus_stacks(BOATS, CHEST_BOATS)),
 			new SimpleJeiRecipe(Id.rsc("chest_boats"), false)
 				.ingredients(EMPTY, EMPTY, EMPTY,
 					boat_planks, CHESTS_WOODEN, boat_planks,
@@ -133,5 +143,72 @@ public class RscJeiPlugin implements IModPlugin {
 		}
 		registration.addRecipes(RscJeiRecipeTypes.SWITCHING,
 			all_switch_families.stream().map(KHolder::value).toList());
+
+		if (RscClientConfig.ADD_FIREWORK_STAR_RECIPES_TO_JEI.get()) {
+
+			/*for (var diamond : List.of(AIR, DIAMOND)) {
+				for (var glowstone : List.of(AIR, GLOWSTONE)) {
+					for (var shape_item : List.of(get_shape_ingredient(), Ingredient.EMPTY)) {
+						for (int dye_count = 0; dye_count < 8; dye_count++) {
+							var ingredients = NonNullList.<Ingredient>create();
+							ingredients.add(Ingredient.of(Items.GUNPOWDER));
+							var path = new StringBuilder("firework_star");
+							if (!shape_item.isEmpty()) {
+								ingredients.add(shape_item);
+								path.append("_shape");
+							}
+							if (diamond != AIR) {
+								ingredients.add(Ingredient.of(diamond));
+								path.append("_diamond");
+							}
+							if (glowstone != AIR) {
+								ingredients.add(Ingredient.of(glowstone));
+								path.append("_glowstone");
+							}
+							ingredients.add(Ingredient.of(DYES));
+							if (ingredients.size() + dye_count <= 9) {
+								for (int i = 0; i < dye_count; i++) {
+									ingredients.add(Ingredient.of(DYES));
+								}
+								path.append("_dye_").append(dye_count + 1);
+								registration.addRecipes(RecipeTypes.CRAFTING, List.of(
+									new SimpleJeiRecipe(Id.rsc(path.toString()), true)
+										.ingredients_list(ingredients)
+										.output(FIREWORK_STAR)
+								));
+							}
+						}
+					}
+				}
+			}*/
+			var dyes_1_8 = copy_stacks(stack ->
+				stack.setHoverName(translatable("jei.recipe.roxxys_survival_core.dyes")), DYES);
+			var firework_star_1_8 =copy_stacks(stack ->
+					stack.setHoverName(translatable("jei.recipe.roxxys_survival_core.firework_stars")),
+				FIREWORK_STAR);
+			var gunpowder_1_3 = copy_stacks(stack ->
+					stack.setHoverName(translatable("jei.recipe.roxxys_survival_core.gunpowder")),
+				Items.GUNPOWDER);
+			registration.addRecipes(RecipeTypes.CRAFTING, List.of(
+				new SimpleJeiRecipe(Id.rsc("firework_star"), true)
+					.ingredients(Items.GUNPOWDER, dyes_1_8,
+						copy_stacks(optional, get_shape_ingredient()),
+						copy_stacks(optional, GLOWSTONE_DUST),
+						copy_stacks(optional, DIAMOND))
+					.output(FIREWORK_STAR)
+			));
+			registration.addRecipes(RecipeTypes.CRAFTING, List.of(
+				new SimpleJeiRecipe(Id.rsc("firework_star_fade"), true)
+					.ingredients(FIREWORK_STAR, dyes_1_8)
+					.output(FIREWORK_STAR)
+			));
+			var firework = FIREWORK_ROCKET.getDefaultInstance();
+			firework.setTag(null);
+			registration.addRecipes(RecipeTypes.CRAFTING, List.of(
+				new SimpleJeiRecipe(Id.rsc("firework_from_star"), true)
+					.ingredients(gunpowder_1_3, PAPER, firework_star_1_8)
+					.output(firework)
+			));
+		}
 	}
 }

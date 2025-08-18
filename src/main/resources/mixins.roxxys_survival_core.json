@@ -8,6 +8,8 @@
 	"refmap": "mixins.roxxys_survival_core.refmap.json",
 	"mixins": [
 		"block_family_ratio_override.BlockFamiliesMixin",
+		"firework_star_recipe_remove_invalid_items.FireworkStarRecipeAccessor",
+		"firework_star_recipe_remove_invalid_items.FireworkStarRecipeMixin",
 		"iframe_changes.LivingEntityMixin",
 		"stop_automate_block_famlies.BlockFamilyInferrerMixin"
 	],

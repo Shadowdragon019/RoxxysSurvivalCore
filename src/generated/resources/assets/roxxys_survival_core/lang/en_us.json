@@ -1,4 +1,7 @@
 {
   "block.roxxys_survival_core.flint": "Flint",
-  "jei.category.roxxys_survival_core.switching": "Switching"
+  "jei.recipe.roxxys_survival_core.dyes": "Dyes: 1-8",
+  "jei.recipe.roxxys_survival_core.firework_stars": "Firework Stars: 1-8",
+  "jei.recipe.roxxys_survival_core.gunpowder": "Gunpowder: 1-3",
+  "jei.recipe.roxxys_survival_core.optional": "Optional: %s"
 }

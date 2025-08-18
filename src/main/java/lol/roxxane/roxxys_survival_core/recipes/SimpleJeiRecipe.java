@@ -1,6 +1,6 @@
 package lol.roxxane.roxxys_survival_core.recipes;
 
-import lol.roxxane.roxxys_survival_core.utils.Merge;
+import lol.roxxane.roxxys_survival_core.utils.ItemManipulation;
 import net.minecraft.core.NonNullList;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -26,19 +26,23 @@ public class SimpleJeiRecipe extends CustomRecipe implements JeiOutputOverride {
 		this.shapeless = shapeless;
 	}
 	public SimpleJeiRecipe ingredients_count(int count, Object... objects) {
-		ingredients.addAll(Merge.ingredients_count(count, objects));
+		ingredients.addAll(ItemManipulation.ingredients_count(count, objects));
 		return this;
 	}
 	public SimpleJeiRecipe ingredients(Object... objects) {
-		ingredients.addAll(Merge.ingredients(objects));
+		ingredients.addAll(ItemManipulation.ingredients(objects));
+		return this;
+	}
+	public SimpleJeiRecipe ingredients_list(List<Ingredient> ingredients) {
+		this.ingredients.addAll(ingredients);
 		return this;
 	}
 	public SimpleJeiRecipe output_count(int count, Object... objects) {
-		output.addAll(Merge.stacks_count(count, objects));
+		output.addAll(ItemManipulation.stacks_count(count, objects));
 		return this;
 	}
 	public SimpleJeiRecipe output(Object... objects) {
-		output.addAll(Merge.stacks(objects));
+		output.addAll(ItemManipulation.stacks(objects));
 		return this;
 	}
 	@Override

@@ -15,6 +15,8 @@ public class RscServerConfig {
 	public static final IntValue DEFAULT_IFRAMES =
 		BUILDER.defineInRange("default_iframes", 0, 0, Integer.MAX_VALUE);
 	public static final BooleanValue OVERRIDE_IFRAME_FUNCTIONALITY =
-		BUILDER.define("override_iframe_functionality", false);
+		BUILDER.define("override_iframe_functionality", false); // TODO: Setting to false doesn't work?
+	public static final BooleanValue CUSTOMIZE_FIREWORK_STAR_RECIPE =
+		BUILDER.define("customize_firework_star_recipe", false);
 	public static final ForgeConfigSpec SPEC = BUILDER.build();
 }
