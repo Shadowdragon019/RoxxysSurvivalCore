@@ -1,5 +1,7 @@
-package lol.roxxane.roxxys_survival_core.jei;
+package lol.roxxane.roxxys_survival_core.jei.categories;
 
+import lol.roxxane.roxxys_survival_core.jei.RscJeiPlugin;
+import lol.roxxane.roxxys_survival_core.jei.RscJeiRecipeTypes;
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder;
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView;
 import mezz.jei.api.helpers.IGuiHelper;

@@ -1,17 +1,23 @@
 package lol.roxxane.roxxys_survival_core.jei;
 
 import lol.roxxane.roxxys_survival_core.Rsc;
+import lol.roxxane.roxxys_survival_core.blocks.RscBlocks;
 import lol.roxxane.roxxys_survival_core.configs.RscClientConfig;
+import lol.roxxane.roxxys_survival_core.jei.categories.RscSmithingCategory;
+import lol.roxxane.roxxys_survival_core.jei.categories.SwitchingCategory;
 import lol.roxxane.roxxys_survival_core.recipes.JeiOutputOverride;
+import lol.roxxane.roxxys_survival_core.recipes.RscRecipeTypes;
 import lol.roxxane.roxxys_survival_core.recipes.SimpleJeiRecipe;
 import lol.roxxane.roxxys_survival_core.utils.Id;
 import lol.roxxane.roxxys_survival_core.utils.ItemManipulation;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.RecipeTypes;
+import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
 import mezz.jei.api.registration.IVanillaCategoryExtensionRegistration;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -49,9 +55,15 @@ public class RscJeiPlugin implements IModPlugin {
 	public void registerCategories(@NotNull IRecipeCategoryRegistration registration) {
 		var jei_helpers = registration.getJeiHelpers();
 		var gui_helper = jei_helpers.getGuiHelper();
-
 		registration.addRecipeCategories(new SwitchingCategory(gui_helper));
+		registration.addRecipeCategories(new RscSmithingCategory(gui_helper));
 	}
+
+	@Override
+	public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
+		registration.addRecipeCatalyst(RscBlocks.SMITHING_TABLE.get(), RscJeiRecipeTypes.SMITHING);
+	}
+
 	@Override
 	public void registerVanillaCategoryExtensions(@NotNull IVanillaCategoryExtensionRegistration registration) {
 		registration.getCraftingCategory().addCategoryExtension(CustomRecipe.class,
@@ -126,7 +138,7 @@ public class RscJeiPlugin implements IModPlugin {
 				holder.value().switchAttrs().enabled() &&
 					holder.value().switchAttrs().cascading())
 			.toList();
-		if (all_switch_families.isEmpty())
+		/*if (all_switch_families.isEmpty())
 			Rsc.log("Found 0 KSwitch block families");
 		else {
 			Rsc.log("Found " + all_switch_families.size() + " KSwitch block families:");
@@ -140,12 +152,13 @@ public class RscJeiPlugin implements IModPlugin {
 					items.delete(items.length() - 2, items.length() - 1);
 				Rsc.log(id + " with " + family.itemHolders().size() + " items " + items);
 			}
-		}
+		}*/
 		registration.addRecipes(RscJeiRecipeTypes.SWITCHING,
 			all_switch_families.stream().map(KHolder::value).toList());
-
+		assert Minecraft.getInstance().level != null;
+		registration.addRecipes(RscJeiRecipeTypes.SMITHING,
+			Minecraft.getInstance().level.getRecipeManager().getAllRecipesFor(RscRecipeTypes.SMITHING));
 		if (RscClientConfig.ADD_FIREWORK_STAR_RECIPES_TO_JEI.get()) {
-
 			/*for (var diamond : List.of(AIR, DIAMOND)) {
 				for (var glowstone : List.of(AIR, GLOWSTONE)) {
 					for (var shape_item : List.of(get_shape_ingredient(), Ingredient.EMPTY)) {
@@ -174,7 +187,7 @@ public class RscJeiPlugin implements IModPlugin {
 								registration.addRecipes(RecipeTypes.CRAFTING, List.of(
 									new SimpleJeiRecipe(Id.rsc(path.toString()), true)
 										.ingredients_list(ingredients)
-										.output(FIREWORK_STAR)
+										.result(FIREWORK_STAR)
 								));
 							}
 						}

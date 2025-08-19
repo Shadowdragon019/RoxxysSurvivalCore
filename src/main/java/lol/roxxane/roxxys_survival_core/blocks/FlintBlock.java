@@ -13,7 +13,6 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING;
@@ -31,7 +30,7 @@ public class FlintBlock extends Block implements SimpleWaterloggedBlock {
 		);
 	}
 	@Override
-	public @NotNull FluidState getFluidState(@NotNull BlockState state) {
+	public FluidState getFluidState(BlockState state) {
 		if (state.getValue(WATERLOGGED))
 			return Fluids.WATER.getSource(false);
 		else return Fluids.EMPTY.defaultFluidState();
@@ -59,16 +58,16 @@ public class FlintBlock extends Block implements SimpleWaterloggedBlock {
 		);
 	}
 	@Override
-	public boolean canSurvive(@NotNull BlockState state, @NotNull LevelReader level, @NotNull BlockPos pos) {
+	public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
 		return level.getBlockState(pos.offset(0, -1, 0))
 			.isFaceSturdy(level, pos, Direction.UP);
 	}
 	@Override
-	public @NotNull VoxelShape getShape(
+	public VoxelShape getShape(
 		BlockState state,
-		@NotNull BlockGetter level,
-		@NotNull BlockPos blockPos,
-		@NotNull CollisionContext ctx
+		BlockGetter level,
+		BlockPos blockPos,
+		CollisionContext ctx
 	) {
 		return switch (state.getValue(HORIZONTAL_FACING)) {
 			case EAST, WEST -> EAST_WEST;

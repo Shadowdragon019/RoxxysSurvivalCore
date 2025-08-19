@@ -12,7 +12,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 import org.apache.commons.lang3.NotImplementedException;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,15 +53,15 @@ public class SimpleJeiRecipe extends CustomRecipe implements JeiOutputOverride {
 		return shapeless;
 	}
 	@Override
-	public @NotNull NonNullList<Ingredient> getIngredients() {
+	public NonNullList<Ingredient> getIngredients() {
 		return ingredients;
 	}
 	@Override
-	public boolean matches(@NotNull CraftingContainer $, @NotNull Level $1) {
+	public boolean matches(CraftingContainer $, Level $1) {
 		throw new NotImplementedException();
 	}
 	@Override
-	public @NotNull ItemStack assemble(@NotNull CraftingContainer $, @NotNull RegistryAccess $1) {
+	public ItemStack assemble(CraftingContainer $, RegistryAccess $1) {
 		throw new NotImplementedException();
 	}
 	@Override
@@ -70,7 +69,7 @@ public class SimpleJeiRecipe extends CustomRecipe implements JeiOutputOverride {
 		throw new NotImplementedException();
 	}
 	@Override
-	public @NotNull RecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		throw new NotImplementedException();
 	}
 }

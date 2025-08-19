@@ -31,6 +31,7 @@ public class RscDataGen {
 		server_provider(new RscItemTagProvider(output, provider,
 			server_provider(new RscBlockTagProvider(output, provider, existing_file_helper)).contentsGetter(),
 			existing_file_helper));
+		server_provider(new RscRecipeProvider(output));
 	}
 	private static <T extends DataProvider> T server_provider(T provider) {
 		generator.addProvider(event.includeServer(), provider);
