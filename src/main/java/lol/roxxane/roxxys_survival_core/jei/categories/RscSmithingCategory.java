@@ -9,7 +9,6 @@ import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.recipe.IFocusGroup;
 import mezz.jei.api.recipe.category.AbstractRecipeCategory;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 
 public class RscSmithingCategory extends AbstractRecipeCategory<RscSmithingRecipe> {
 	public RscSmithingCategory(IGuiHelper guiHelper) {
@@ -23,10 +22,10 @@ public class RscSmithingCategory extends AbstractRecipeCategory<RscSmithingRecip
 	}
 	@Override
 	public void setRecipe(IRecipeLayoutBuilder builder, RscSmithingRecipe recipe, IFocusGroup focuses) {
-		builder.addInputSlot(1, 6).addItemStack(recipe.base.getDefaultInstance()).setStandardSlotBackground();
+		builder.addInputSlot(1, 6)
+			.addItemStack(recipe.base.getDefaultInstance()).setStandardSlotBackground();
 		builder.addInputSlot(19, 6)
-			.addItemStack(new ItemStack(recipe.material, recipe.materials_needed))
-			.setStandardSlotBackground();
+			.addItemStack(recipe.material.getDefaultInstance()).setStandardSlotBackground();
 		builder.addOutputSlot(91 - 18, 6)
 			.addItemStack(recipe.result.getDefaultInstance()).setStandardSlotBackground();
 	}

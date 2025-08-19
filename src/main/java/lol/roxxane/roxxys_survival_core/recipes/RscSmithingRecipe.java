@@ -22,13 +22,11 @@ public class RscSmithingRecipe implements Recipe<Container> {
 	public final ResourceLocation id;
 	public final Item base;
 	public final Item material;
-	public final int materials_needed;
 	public final Item result;
-	public RscSmithingRecipe(ResourceLocation id, Item base, Item material, int materials_needed, Item result) {
+	public RscSmithingRecipe(ResourceLocation id, Item base, Item material, Item result) {
 		this.id = id;
 		this.base = base;
 		this.material = material;
-		this.materials_needed = materials_needed;
 		this.result = result;
 	}
 	public void save(Consumer<FinishedRecipe> writer) {
@@ -38,8 +36,7 @@ public class RscSmithingRecipe implements Recipe<Container> {
 	public boolean matches(Container container, Level level) {
 		var input_item = container.getItem(0).getItem();
 		var material_item = container.getItem(1).getItem();
-		var material_count = container.getItem(1).getCount();
-		return base == input_item && material == material_item && material_count >= materials_needed;
+		return base == input_item && material == material_item;
 	}
 	@Override
 	public ItemStack assemble(Container container, RegistryAccess registry_access) {
@@ -75,7 +72,6 @@ public class RscSmithingRecipe implements Recipe<Container> {
 			return new RscSmithingRecipe(id,
 				JsonUtil.get_item(json, "base"),
 				JsonUtil.get_item(json, "material"),
-				json.has("materials_needed") ? json.get("materials_needed").getAsInt() : 1,
 				JsonUtil.get_item(json, "result"));
 		}
 		@Override
@@ -83,14 +79,12 @@ public class RscSmithingRecipe implements Recipe<Container> {
 			return new RscSmithingRecipe(id,
 				buffer.readRegistryId(),
 				buffer.readRegistryId(),
-				buffer.readInt(),
 				buffer.readRegistryId());
 		}
 		@Override
 		public void toNetwork(FriendlyByteBuf buffer, RscSmithingRecipe recipe) {
 			buffer.writeRegistryId(ForgeRegistries.ITEMS, recipe.base);
 			buffer.writeRegistryId(ForgeRegistries.ITEMS, recipe.material);
-			buffer.writeInt(recipe.materials_needed);
 			buffer.writeRegistryId(ForgeRegistries.ITEMS, recipe.result);
 		}
 	}
@@ -100,7 +94,6 @@ public class RscSmithingRecipe implements Recipe<Container> {
 		public void serializeRecipeData(JsonObject json) {
 			json.addProperty("base", ForgeRegistries.ITEMS.getKey(recipe.base).toString());
 			json.addProperty("material", ForgeRegistries.ITEMS.getKey(recipe.material).toString());
-			json.addProperty("materials_needed", recipe.materials_needed);
 			json.addProperty("result", ForgeRegistries.ITEMS.getKey(recipe.result).toString());
 		}
 		@Override
