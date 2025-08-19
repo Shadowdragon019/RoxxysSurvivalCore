@@ -6,7 +6,6 @@ import lol.roxxane.roxxys_survival_core.blocks.RscBlocks;
 import lol.roxxane.roxxys_survival_core.configs.RscClientConfig;
 import lol.roxxane.roxxys_survival_core.configs.RscCommonConfig;
 import lol.roxxane.roxxys_survival_core.configs.RscServerConfig;
-import lol.roxxane.roxxys_survival_core.items.RscItems;
 import lol.roxxane.roxxys_survival_core.menus.RscMenuTypes;
 import lol.roxxane.roxxys_survival_core.recipes.FireworkStarRecipeCustomization;
 import lol.roxxane.roxxys_survival_core.recipes.RscRecipeSerializers;
@@ -42,7 +41,6 @@ public class Rsc {
 		context.registerConfig(ModConfig.Type.COMMON, RscCommonConfig.SPEC);
 		context.registerConfig(ModConfig.Type.CLIENT, RscClientConfig.SPEC);
 		RscBlocks.register();
-		RscItems.register();
 		RscRecipeSerializers.register();
 		RscRecipeTypes.register();
 		RscMenuTypes.register();

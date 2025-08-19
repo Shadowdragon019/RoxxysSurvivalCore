@@ -1,16 +1,10 @@
-// 1.20.1	2025-08-19T02:04:21.475184654	Registrate Provider for roxxys_survival_core [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
+// 1.20.1	2025-08-19T13:57:32.931245694	Registrate Provider for roxxys_survival_core [Recipes, Advancements, Loot Tables, Tags (blocks), Tags (items), Tags (fluids), Tags (entity_types), Blockstates, Item models, Lang (en_us/en_ud)]
 cae6f485a17bde74d91e6c91ce4960e77ab1e3db assets/roxxys_survival_core/blockstates/flint.json
 e01d538de9ee2f12215bb211c0788f5493a3d863 assets/roxxys_survival_core/blockstates/smithing_table.json
-e9db1c28242b51abfdb75e869dd2e6609995c9ea assets/roxxys_survival_core/lang/en_ud.json
-f0b7489066e8726aa9df0e5d9cdf703d3c900ef8 assets/roxxys_survival_core/lang/en_us.json
+6a625fa4cb7b411b84f2a0c0fb74d5d49e64eb83 assets/roxxys_survival_core/lang/en_ud.json
+5097e1220f2f39b696df48e6ac57fdb5c35c6487 assets/roxxys_survival_core/lang/en_us.json
 91747b4d0503ff379b3c3ab283d1ef123e0f4170 assets/roxxys_survival_core/models/block/smithing_table.json
-df082e4da8c1b5add9a1daf7bbe06b141f174407 assets/roxxys_survival_core/models/item/axe_base.json
 22cbe25e6c560f3524ecc3a2c714c38b3cf4b408 assets/roxxys_survival_core/models/item/flint.json
-a1695cecf667a0bb8d2bb31f50333b148b0463af assets/roxxys_survival_core/models/item/hoe_base.json
-fb986e2049aed476873e8b29acc5b9a9cc962962 assets/roxxys_survival_core/models/item/iron_plate.json
-16d82fcb91ab5d317dbdfeede3cee8a1ccfc2098 assets/roxxys_survival_core/models/item/pickaxe_base.json
-443634613640c306b226b93e6cbbfa35739deaee assets/roxxys_survival_core/models/item/shovel_base.json
 e7f5580926bba0bbcefc0ad45fca6417f698cbe4 assets/roxxys_survival_core/models/item/smithing_table.json
-75d3d5e48603e27bd1473bc9c2076a368e1fee4e assets/roxxys_survival_core/models/item/sword_base.json
 d9c3b327e64fd256fde6d5b1926d5e80d227b55b data/roxxys_survival_core/loot_tables/blocks/flint.json
 0b95b01c3c83f9746dbe1f11929a2e7d46be017a data/roxxys_survival_core/loot_tables/blocks/smithing_table.json

@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 public class RscSmithingRecipe implements Recipe<Container> {
 	public final ResourceLocation id;
 	public final Item base;
-	public final Item material;
+	public final Item material; //Can't have multiple counts for this as assemble is ran multiple times
 	public final Item result;
 	public RscSmithingRecipe(ResourceLocation id, Item base, Item material, Item result) {
 		this.id = id;

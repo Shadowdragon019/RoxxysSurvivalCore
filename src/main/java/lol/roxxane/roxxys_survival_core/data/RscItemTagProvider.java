@@ -1,8 +1,6 @@
 package lol.roxxane.roxxys_survival_core.data;
 
 import lol.roxxane.roxxys_survival_core.Rsc;
-import lol.roxxane.roxxys_survival_core.items.RscItems;
-import lol.roxxane.roxxys_survival_core.tags.RscItemTags;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -19,10 +17,6 @@ public class RscItemTagProvider extends ItemTagsProvider {
 	) {
 		super(output, provider, block_tags, Rsc.ID, existing_file_helper);
 	}
-	@SuppressWarnings("unchecked")
 	@Override
-	protected void addTags(@NotNull Provider provider) {
-		tag(RscItemTags.IRON_PLATES).add(RscItems.IRON_PLATE.get());
-		tag(RscItemTags.PLATES).addTags(RscItemTags.IRON_PLATES);
-	}
+	protected void addTags(@NotNull Provider provider) {}
 }
